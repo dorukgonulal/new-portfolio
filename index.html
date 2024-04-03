@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doruk - Front-End Developer</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header class="navbar-container">
+    <p class="logo">doruk<span class="logo-2">.dev</span></p>
+    <div class="navbar">
+      <div class="navbar-icons">
+        <a onclick="window.location='index.html'"><i class="fa-solid fa-house"></i></a>
+      </div>
+      <div class="navbar-icons">
+        <a onclick="window.location='about-me.html'"><i class="fa-solid fa-id-card"></i></a>
+      </div>
+      <div class="navbar-icons">
+        <a onclick="window.location='contact.html'"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <div class="navbar-icons">
+        <a onclick="window.location='projects.html'"><i class="fa-solid fa-server"></i></a>
+      </div>
+    </div>
+  </header>
+  <h1 class="typewriter-div">
+    <img src="assets/pfp.jpg" class="img-1">
+    <a href="" class="typewrite" data-period="2000" data-type='[ " Hi, I am Doruk.", "I am Web Developer.", "I am Student.", "I love Front-End." ]'>
+      <span class="wrap"></span>
+    </a>
+  </h1>
+
+
+  <div class="mini-aboutMe">
+    <p class="description">
+      Hi, I'm Ahmet Doruk Gönülal. <br> A passionate Front-end Developer based in Izmir, Türkiye 📍. <br> <br>
+      <a href="https://github.com/dorukgonulal" target="_blank" class="icons"><i class="fa-brands fa-github"></i></a>
+      <a href="https://x.com/dorukcode" class="icons" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://youtube.com/@codedoruk" class="icons" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://instagram.com/dorukgonulal" class="icons" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    </p>
+    <button class="btn-aboutme" onclick="window.location='about-me.html'"><a>Learn More About Me <i class="fa-solid fa-arrow-right"></i></a></button>
+  </div>
+
+
+  <div class="technologies-container">
+    <div class="technologies-title-div">
+      <p class="technologies-title">
+        👨‍💻 Technologies I Use
+      </p>
+      <p class="technologies-use">
+        List of technologies I can use.
+      </p>
+    </div>
+
+    <div class="tech-conatiner">
+      <div class="tech-div">
+        <p><img src="assets/html.png" class="tech-icons">HTML</p>
+      </div>
+      <div class="tech-div">
+        <p><img src="assets/css.png" class="tech-icons">CSS</p>
+      </div>
+      <div class="tech-div">
+        <p><img src="assets/nodejs.svg" class="tech-icons">node.js</p>
+      </div>
+      <div class="tech-div">
+        <p><img src="assets/javascript.png" class="tech-icons">JavaScript</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Created and styled by <i class="fa-solid fa-heart"></i> <a href="https://youtube.com/@CodeDoruk">Doruk</a></p>
+  </footer>
+
+
+
+<!-- Scripts -->
+  <script>
+    var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+  </script>
+</body>
+</html>
